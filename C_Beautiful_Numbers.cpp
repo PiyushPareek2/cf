@@ -38,6 +38,7 @@ bool good(int a,int b,int i){
 }
 
 
+//here we are commiting changes in the file
 
 void solve(){
     int a,b;
