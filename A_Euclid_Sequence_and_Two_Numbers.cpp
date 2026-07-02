@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+//land ke padhi
 using namespace std;
 
 #define int long long
