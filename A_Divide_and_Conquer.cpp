@@ -1,8 +1,8 @@
+// git master change 
 #include <bits/stdc++.h>
 using namespace std;
 
 #define int long long
-// but with practise we can
 void solve(){
     int x;
     cin >> x;
