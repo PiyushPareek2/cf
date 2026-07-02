@@ -1,4 +1,6 @@
-//land ke padhi
+//ladka land padh raha ha hamara
+
+
 using namespace std;
 
 #define int long long
