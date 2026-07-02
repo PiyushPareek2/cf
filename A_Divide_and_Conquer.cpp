@@ -2,7 +2,7 @@
 using namespace std;
 
 #define int long long
-// if we can't divide we can't conquer
+// but with practise we can
 void solve(){
     int x;
     cin >> x;
