@@ -1,4 +1,4 @@
-//land ke padhi
+//master version
 using namespace std;
 
 #define int long long
