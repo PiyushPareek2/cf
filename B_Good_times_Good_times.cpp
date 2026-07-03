@@ -3,7 +3,7 @@ using namespace std;
 
 #define int long long
 
-vector<int> good(1e8 +1,0);
+
 bool isgood(int i){
     unordered_map<int,int>m;
     while(i){
@@ -14,11 +14,7 @@ bool isgood(int i){
     }
     return true;
 }
-void precompute(){
-    for(int i=2;i<=1e8;i++){
-        if(isgood(i))good[i]=1;
-    }
-}
+
 
 void solve(){
     int x;

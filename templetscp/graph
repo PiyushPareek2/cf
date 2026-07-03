@@ -3,7 +3,7 @@
 using namespace std;
 int main(){
 
-
+// agar graph  ke node 1 -n then always declare vector<int> a(n+1)
 // adjency list adj[i]=[a,b,c,d] these are all neighbours of  i node
 vector<vector<int>> edges;
 // adj more useful than edges in question
@@ -57,8 +57,195 @@ for(int i=1;i<=n;i++){
 }
 
 
+// bfs breadth first search
+vector<int> vis(n+1,0);
+
+queue<int> q;
+
+q.push(src);
+vis[src]=1;
+
+while(!q.empty()){
+
+    int node=q.front();
+    q.pop();
+
+    for(int neigh: adj[node]){
+
+        if(!vis[neigh]){
+            vis[neigh]=1;
+            q.push(neigh);
+        }
+    }
+}
+
+// for shortest distance from source non weighted graph
+// dist instead of vis, dist[src]=0 then dist[node]=dist[node which is recently pop]
+vector<int> dist(n+1,-1);
+
+queue<int> q;
+q.push(src);
+
+dist[src]=0;
+
+while(!q.empty()){
+
+    int node=q.front();
+    q.pop();
+
+    for(int neigh: adj[node]){
+
+        if(dist[neigh]==-1){
+
+            dist[neigh]=dist[node]+1;
+            q.push(neigh);
+        }
+    }
+}
+
+//cycle detection using bfs undirected graph
+bool bfsHasCycle(int src, vector<vector<int>>& adj, vector<bool>& visited) {
+    queue<pair<int, int>> q; // {node, parent}
+
+    visited[src] = true;
+    q.push({src, -1});
+
+    while (!q.empty()) {
+        auto [u, parent] = q.front();
+        q.pop();
+
+        for (int v : adj[u]) {
+
+            // If not visited, visit it
+            if (!visited[v]) {
+                visited[v] = true;
+                q.push({v, u});
+            }
+
+            // If visited and not parent, cycle exists
+            else if (v != parent) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+//can be disconnected so make sure check everynode
+bool hasCycle(int n, vector<vector<int>>& adj) {
+    vector<bool> visited(n, false);
+    for (int i = 1; i <= n; i++) {
+        if (!visited[i]) {
+            if (bfsHasCycle(i, adj, visited)) return true;
+        }
+    }
+    return false;
+}
+// barpatite graph
+//intiallly all color(n+1,-1) and color[src]=0
+bool isbarpatite(int src,vector<int>& color){
+
+    queue<int> q;
+
+    q.push(src);
+    color[src]=0;
+
+    while(!q.empty()){
+
+        int node=q.front();
+        q.pop();
+
+        for(int neigh:adj[node]){
+
+            if(color[neigh]==-1){
+
+                color[neigh]=1-color[node];
+                q.push(neigh);
+            }
+
+            else if(color[neigh]==color[node])
+                return false;
+        }
+    }
+
+    return true;
+}
 
 
+//dijsktra algo
+vector<int> dij(vector<vector<pair<int,int>>>& adj,vector<int>& dist,int v,int s){
+        priority_queue<pair<int,int>, vector<pair<int,int>>,greater<pair<int,int>>> pq;
+        dist[s]=0;
+        pq.push({0,s});
+        while(!pq.empty()){
+            int dis=pq.top().first;
+            int node=pq.top().second;
+            pq.pop();
+            for( auto& it : adj[node]){
+                int adjnode=it.first;
+                int adjdist=it.second;
+                if(dis> dist[adjnode])continue;
+                if(dis+adjdist < dist[adjnode]){        //relaxation step
+                    dist[adjnode]=dis+adjdist;
+                    pq.push({dist[adjnode],adjnode});
+                }
+            }
+        }
+        return dist;  //dist wil store dist from src to i as dist[i]
+    }
+
+// bfs 0-1 use deque to take 
+
+//nord relaxation using hashmap
+ vector<unordered_map<int,int>> best(n);
+
+for (auto &e : edges) {
+    int u = e[0], v = e[1], t = e[2];
+
+    if (!best[u].count(v) || best[u][v] > t)
+        best[u][v] = t;
+
+    if (!best[v].count(u) || best[v][u] > t)
+        best[v][u] = t;
+}
+
+vector<vector<pair<int,int>>> adj(n);
+
+for (int u = 0; u < n; u++) {
+    for (auto &[v, t] : best[u]) {
+        adj[u].push_back({v, t});
+    }
+}
+
+// bellman ford algo for negative edge weight by (n-1 times relaxation) but invalid for negative weight cycle
+vector<long long> bellmanFord(int n, vector<vector<int>>& edges, int src) {
+    const long long INF = 1e18;
+
+    vector<long long> dist(n, INF);
+    dist[src] = 0;
+
+    // Relax all edges n-1 times
+    for (int i = 1; i < n; i++) {
+        bool updated = false;
+
+        for (auto &e : edges) {
+            int u = e[0];
+            int v = e[1];
+            int wt = e[2];
+
+            if (dist[u] != INF && dist[u] + wt < dist[v]) {
+                dist[v] = dist[u] + wt;
+                updated = true;
+            }
+        }
+
+        // Early stopping
+        if (!updated)
+            break;
+    }
+
+    return dist;
+}
 
 
 
