@@ -247,8 +247,121 @@ vector<long long> bellmanFord(int n, vector<vector<int>>& edges, int src) {
     return dist;
 }
 
+// Floyd-Warshall Algorithm
+// Finds shortest distance between every pair of vertices
+// Works with negative edge weights
+// Does NOT work if a negative cycle exists. but can be used to detect negative weight cycle if exists as after the floyed warshall ncube loop complete if there is any dist[i][j]<0 means negative cycle exists
 
+const long long INF = 1e18;
 
+vector<vector<long long>> floydWarshall(int n, vector<vector<int>>& edges) {
+    vector<vector<long long>> dist(n, vector<long long>(n, INF));
+
+    // Distance to self = 0
+    for (int i = 0; i < n; i++)
+        dist[i][i] = 0;
+
+    // Initialize edges
+    for (auto &e : edges) {
+        int u = e[0], v = e[1], wt = e[2];
+        dist[u][v] = min(dist[u][v], (long long)wt);
+
+        // Uncomment for undirected graph
+        // dist[v][u] = min(dist[v][u], (long long)wt);
+    }
+
+    // Floyd-Warshall
+    for (int via = 0; via < n; via++) {
+        for (int i = 0; i < n; i++) {
+            if (dist[i][via] == INF) continue;
+            for (int j = 0; j < n; j++) {
+                if (dist[via][j] == INF) continue;
+
+                dist[i][j] = min(dist[i][j],
+                                 dist[i][via] + dist[via][j]);
+            }
+        }
+    }
+
+    return dist;
+}
+
+// DSU tells whether  two nodes are connected or not  but one must fill all the edges
+class DisjointSet {
+public:
+    vector<int> parent, rank, size;
+
+    DisjointSet(int n) {
+        parent.resize(n + 1);
+        rank.resize(n + 1, 0);
+        size.resize(n + 1, 1);
+
+        for (int i = 0; i <= n; i++)
+            parent[i] = i;
+    }
+
+    // Path Compression
+    int findUPar(int node) {
+        if (node == parent[node])
+            return node;
+        return parent[node] = findUPar(parent[node]);
+    }
+
+    // Union by Rank
+    void unionByRank(int u, int v) {
+        u = findUPar(u);
+        v = findUPar(v);
+
+        if (u == v) return;
+
+        if (rank[u] < rank[v]) {
+            parent[u] = v;
+        }
+        else if (rank[v] < rank[u]) {
+            parent[v] = u;
+        }
+        else {
+            parent[v] = u;
+            rank[u]++;
+        }
+    }
+
+    // Union by Size
+    void unionBySize(int u, int v) {
+        u = findUPar(u);
+        v = findUPar(v);
+
+        if (u == v) return;
+
+        if (size[u] < size[v]) {
+            parent[u] = v;
+            size[v] += size[u];
+        }
+        else {
+            parent[v] = u;
+            size[u] += size[v];
+        }
+    }
+};
+//usgae what to do inside leetcode or code forces main function
+{int n = 7;
+DisjointSet ds(n);
+
+ds.unionBySize(1, 2);
+ds.unionBySize(2, 3);
+
+ds.unionBySize(4, 5);
+
+if (ds.findUPar(1) == ds.findUPar(3))
+    cout << "Same Component\n";
+else
+    cout << "Different Component\n";
+
+ds.unionBySize(3, 5);
+
+if (ds.findUPar(1) == ds.findUPar(5))
+    cout << "Same Component\n";
+}
 
 
 
