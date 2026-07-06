@@ -13,7 +13,7 @@ signed main(){
    cin>>n>>m;
    vector<int> a(n);
    for(auto&x : a)cin>>x;
-   if(n>=m){
+   if(n>m){
     cout<<0<<endl;
     return 0;
    }
