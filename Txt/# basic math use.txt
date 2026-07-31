@@ -1,0 +1,241 @@
+# basic math use
+
+Integer Division Pitfalls in DSA & Competitive Programming
+
+One of the most common reasons for getting a Wrong Answer (WA) is integer division. Most mathematical formulas are derived assuming real-number division, but C++ performs integer division whenever both operands are integers.
+
+Example:
+
+5 / 2 = 2
+7 / 3 = 2
+1 / 2 = 0
+
+The fractional part is simply discarded.
+
+1. Average
+Wrong
+int avg = (a + b) / 2;
+
+Example:
+
+a = 1
+b = 2
+
+Output:
+
+(1 + 2) / 2 = 1
+
+Actual average:
+
+1.5
+Correct
+double avg = (a + b) / 2.0;
+
+or
+
+double avg = (double)(a + b) / 2;
+2. Probability / Ratio
+
+Suppose the formula is
+
+x / y
+Wrong
+double p = x / y;
+
+If
+
+x = 3
+y = 4
+
+Output
+
+0
+
+because 3/4 is evaluated first as an integer.
+
+Correct
+double p = 1.0 * x / y;
+
+or
+
+double p = (double)x / y;
+3. Percentage
+Wrong
+double percentage = (marks / total) * 100;
+
+Example
+
+marks = 45
+total = 50
+
+Result
+
+45 / 50 = 0
+0 * 100 = 0
+Correct
+double percentage = 100.0 * marks / total;
+4. Ceiling Division
+
+Suppose
+
+10 people
+3 people per group
+
+Groups required = 4
+
+Wrong
+int groups = n / k;
+
+Output
+
+10 / 3 = 3
+Correct (Positive Integers)
+int groups = (n + k - 1) / k;
+
+This is one of the most frequently used formulas in competitive programming.
+
+5. Midpoint
+Common implementation
+mid = (l + r) / 2;
+
+This works, but may overflow when l and r are very large.
+
+Better implementation
+mid = l + (r - l) / 2;
+6. Multiplication Before Division
+
+Suppose
+
+a = 5
+b = 2
+c = 3
+Wrong
+a / b * c
+
+Output
+
+5 / 2 = 2
+2 * 3 = 6
+Correct
+a * c / b
+
+Output
+
+5 * 3 / 2 = 7
+
+Always think about the order of operations.
+
+7. Overflow Before Division
+
+Suppose
+
+a = 1e9
+b = 1e9
+Wrong
+int ans = a * b / c;
+
+a*b overflows before division.
+
+Correct
+long long ans = 1LL * a * b / c;
+
+or
+
+__int128 ans = (__int128)a * b / c;
+
+if needed.
+
+8. Integer Formula Exists
+
+Many people unnecessarily use floating point.
+
+Instead of
+
+ceil((double)n / k)
+
+use
+
+(n + k - 1) / k
+
+Instead of
+
+floor((double)n / k)
+
+use
+
+n / k
+
+Integer formulas are usually faster and avoid precision errors.
+
+9. Explicit Type Conversion
+
+Whenever you need decimal division, convert at least one operand.
+
+(double)a / b
+
+or
+
+1.0 * a / b
+
+or
+
+(long double)a / b
+10. Beware of Formula Rearrangement
+
+Sometimes two mathematically equivalent formulas are not equivalent in integer arithmetic.
+
+Example
+
+Mathematically,
+
+(a + b) / 2 = a / 2 + b / 2
+
+But in C++:
+
+a = 1
+b = 2
+
+(a+b)/2 = 1
+
+a/2 + b/2 = 0 + 1 = 1
+
+Now,
+
+a = 1
+b = 1
+
+(a+b)/2 = 1
+
+a/2 + b/2 = 0 + 0 = 0
+
+So rearranging formulas can change the result because of truncation.
+
+Checklist Before Writing Any Mathematical Formula
+
+Whenever your formula contains /, ask yourself:
+
+Should this division produce a fraction?
+Yes → Use double or long double.
+No → Integer division is fine.
+Can multiplication overflow before division?
+Use 1LL or __int128 if needed.
+Is multiplication happening before division?
+a * b / c is often safer than a / c * b.
+Does the problem require:
+Floor?
+Ceiling?
+Exact division?
+Is there an integer-only formula instead of floating point?
+Could rearranging the formula change the answer because of integer truncation?
+Golden Rule
+
+Whenever you write a mathematical formula in DSA or Competitive Programming, mentally check:
+
+Integer division?
+Overflow?
+Order of operations?
+Need floor/ceil?
+Need long long/__int128?
+Need double/long double?
+
+Following this checklist will eliminate a large fraction of math-related bugs and Wrong Answers in coding interviews and competitive programming.

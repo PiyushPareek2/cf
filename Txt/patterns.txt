@@ -1,0 +1,182 @@
+patterns
+
+sliding window
+ 
+Q count NUMBER NUMBER NUMBER of the subarray with sum less than equal to k
+window of size 1
+ l=0, r=0 ,sum=0 // ans as per question and window size at any instant size=r-l+1
+ while(r<nums.size()){
+	sum+=nums[r];
+	while(sum>tar)sum-=nums[l++];   //agar while ke jagah if to window size kabhi decrease he nahi hoga think (can be used for optimization)
+	if(sum<=tar)ans+=r-l+1;
+	r=r +1;
+	
+}
+
+
+Q count the subarray with sum equal to k  //agar direct sum==k se karega to marjayega fir rote rahne
+  count of subarray with sum less than equal to k - count of subarray with sum less than equal to k-1=ans
+* ek string me baar baar pop front by str.erase(0,1) ke jagha sirf do varible se store kar sakte ha starting_index and size  //useful in sliding window reduce O(n) to O(1)
+															     //then use ans=str.substr(1,size-1) 
+
+ BINARY SEARCH 
+
+
+ 
+
+// lower_bound : first element which is greater than or equal to target in sorted array
+// upper_bound : first element which is greater than target in sorted array
+
+// if(lower_bound == upper_bound) target not present in array
+
+// LOWER BOUND
+int ans = n;
+while(low <= high){
+    int mid = low + (high - low) / 2;
+
+    if(nums[mid] >= target){
+        ans = mid;
+        high = mid - 1;
+    }
+    else{
+        low = mid + 1;
+    }
+}						
+return ans;                        arr=[1,2,4,7,tar,tar,tar,tar,tar,x,y,z]
+						^lowerbound	     ^upperbound
+lower_bound(x) -> first >= x
+upper_bound(x) -> first >  x
+
+freq(x) = upper_bound(x) - lower_bound(x)
+
+if(lb == ub) x not present
+
+jab binary search start hote ha to low possible value or high impossible value (or vise versa ) lekin jab wo khatam ho jata ha to iska ulta ho jata ha !!!!!!!!!!!!!
+In binary search, low and high start as opposite states (possible/impossible), and when the search ends, they cross so that one points to the last possible value and the other to the first impossible value.
+#quesetion like minimize maximum something binary search make range low to high of max something then minimize bs
+
+Recursion : always belive recursive function fn is correct then proceed to return ans then finally write base case
+# patterns in recursion
+ *inclusion and exclusion / take or not take in this we select or not select in each recursive call
+ * recursion me koi cheej ek baar he execute ho      bool f(){
+							base case if true return true else false
+							int f=f(idx+1,nottake) //idx ki jagah state multiple states bhi
+							int r=f(idx+1,take) 
+							return f|r;}
+						even better return f(idx+1, nottake) || f(idx+1, take); with base case
+ agar kabhi recursion me tareko idx se firse idx ko call karna pade to kuch aasa loop chala ke kam se kam uske liye recursion na karna pade
+ or agar kahi non duplicate subset ha to using loop we will push_back in cur subset all value only one time which by if(i<idx && nums[i]==nums[i-1]) continue; see subsets2 lc
+# Kadane = DP (Quick Revision)
+
+## 1. DP means
+
+Define a **state** + write a **transition**.
+
+---
+
+## 2. Kadane State
+
+```text
+dp[i] = Maximum subarray sum ending at index i.
+```
+
+**"Ending at i"** is the key idea.
+
+---
+
+## 3. Transition
+
+Only two choices:
+
+* Start a new subarray.
+* Extend the previous one.
+
+```text
+dp[i] = max(nums[i], dp[i-1] + nums[i])
+```
+
+---
+
+## 4. Space Optimization
+
+Since `dp[i]` only depends on `dp[i-1]`:
+
+```cpp
+cur = max(nums[i], cur + nums[i]);
+ans = max(ans, cur);
+```
+
+No DP array needed.
+
+---
+
+# Maximum Product Subarray
+
+State:
+
+```text
+maxProd[i] = Maximum product ending at i
+minProd[i] = Minimum product ending at i
+```
+
+Need `minProd` because:
+
+```text
+(-) × (-) = (+)
+```
+
+Transition:
+
+```text
+maxProd =
+max(
+    x,
+    prevMax * x,
+    prevMin * x
+)
+
+minProd =
+min(
+    x,
+    prevMax * x,
+    prevMin * x
+)
+```
+
+---
+
+# General Kadane DP Pattern
+
+```text
+State:
+dp[i] = Best answer ending at i
+
+Transition:
+dp[i] = Best(
+    Start New,
+    Extend Previous
+)
+
+Optimization:
+If only dp[i-1] is needed,
+replace the DP array with one variable.
+```
+
+---
+
+# Recognize Kadane-like DP
+
+If a problem asks for the **best value ending at the current index**, think:
+
+* ✅ Maximum Sum
+* ✅ Maximum Product
+* ✅ Maximum Absolute Sum
+* ✅ Some Stock DP states
+* ✅ Many 1D DP problems
+
+---
+
+## One-line Memory Trick
+
+> **Kadane is just 1D DP where the state is "best answer ending here," and since it depends only on the previous state, we compress the DP array into one variable.**
+

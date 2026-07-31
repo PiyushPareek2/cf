@@ -1,0 +1,4 @@
+#key details
+*for median for min  operation to make all element in array equal 
+*map m.size() give size of map all key value even one of those which you never created but created when you tried to access them to get rid from always delete using m.erase(key)
+* agar return long long aur int k, sum then return k*sum can cause overflow therefore use return 1LL *k*sum
