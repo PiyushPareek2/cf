@@ -44,3 +44,5 @@ while (i < text.size()) {
             i++;
     }
 }
+
+//using UNIque array to store all possible sum from an array think how then use freq to calculate possible_ways_to_make_using_pair[sum]
