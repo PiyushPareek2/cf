@@ -1,0 +1,19 @@
+Monotonicity (something only move in one direction something can be pointer , answer , a feasibility condition , max or min , optimal decision) and useless info discard forever 
+# if something only increase ->sliding window , 2 pointer  greedy
+# only decrease -> greedy priority queue  binary search
+# once true then always true  FFFFFTTT or vice versa binary search
+# can a pointer move without moving backward 2pointer ,sliding window
+# does adding more make the condition harder or removing more makes it easier like sum<k -> sliding window
+# permanently useless -> monotonic stack or queue
+# next greater ,smaller nearest greater , smaller -> stack
+# data already sorted -> binary search , greedy ,2 pointer
+# can one decision permanently dominate other greedy
+# optimal answer only move forward-> Knuth Optimization Divide & Conquer DP Aliens Trick CHT
+# old candidates become impossible to choose sliding window queue
+!! not monotonic if property keep flipping 
+
+If I choose A instead of B, does A leave at least as many future possibilities as B?
+If yes, there may be a greedy dominance argument.
+But beware:
+Dominance alone isn't always sufficient for greedy.
+You need a proof that local choices preserve global optimality.
