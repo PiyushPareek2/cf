@@ -17,3 +17,50 @@ If yes, there may be a greedy dominance argument.
 But beware:
 Dominance alone isn't always sufficient for greedy.
 You need a proof that local choices preserve global optimality.
+
+| Technique       | What is monotonic?         | Typical signal                        |
+| --------------- | -------------------------- | ------------------------------------- |
+| Sliding Window  | Window boundaries          | Subarray/substring condition          |
+| Two Pointers    | Pointer positions          | Sorted/ordered structure              |
+| Binary Search   | Feasibility                | Minimum/maximum answer                |
+| Monotonic Stack | Candidate values           | Next/previous greater/smaller         |
+| Monotonic Queue | Candidate values + indices | Window max/min                        |
+| Greedy          | Dominance/choice quality   | One choice leaves more future options |
+| DP Optimization | Optimal transition index   | `opt[i]` never decreases              |
+12. The Golden Rule
+
+Whenever you think you've found a monotonic technique, force yourself to complete this sentence:
+
+"I can permanently discard ___ because ___."
+
+Examples:
+
+Sliding Window
+
+I can permanently discard the old left positions because the left pointer never needs to move backward.
+
+Binary Search
+
+I can permanently discard half the answer space because all values on that side have the same feasibility status.
+
+Monotonic Stack
+
+I can permanently discard this element because the new element dominates it.
+
+Monotonic Queue
+
+I can permanently discard this candidate because a newer, better candidate will always beat it while both remain in the window.
+
+Two Pointers
+
+I can permanently discard these pair possibilities because the sorted order proves they can never work.
+
+Greedy
+
+I can permanently discard this choice because another choice leaves at least as many future possibilities.
+
+DP optimization
+
+I can permanently discard earlier transition positions because the optimal transition can only move forward.
+
+If you cannot complete this sentence convincingly, be suspicious.
