@@ -8,10 +8,13 @@
             i = j;
         }
 // kmp lps making 
+// value of pi(i) or lps[i] can only increase by one pi(i+1)<=pi(i)+1
+//p(n-1) will tell you about longest proper prefix which is equal to the suffix
+int i=1,j=0; // yad karne ke liye dry run on "aab"  before moving i set it's lps
 while (i < n) {
     if (s[i] == s[j]) {
+        lps[i] = j+1;
         j++;
-        lps[i] = j;
         i++;
     }
     else {
@@ -22,6 +25,17 @@ while (i < n) {
             i++;
         }
     }
+}
+or use 
+// pi[idx] tells meri matching kaha tak hue in one base index 
+pi[0]=0;
+for(int i=1;i<n;i++){
+    j=pi[i-1];
+    while(j>0 && s[j]!=s[i]){
+        j=pi[j-1];
+    }
+    if(s[j]==s[i])j++;
+    pi[i]=j;
 }
 // word matching
 while (i < text.size()) {

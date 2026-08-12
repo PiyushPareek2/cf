@@ -8,7 +8,7 @@ void solve(){
     cin >> a >> b ;
     cin >> x >>y;
     cin >> ik >> jk;
-    set<pair<int,int>> s,s2;
+    unordered_set<pair<int,int>,hash> s,s2;
     int dx[]={a , a , -a, -a, b , b , -b ,-b};
     int dy[]={-b, b , -b,  b, a ,-a , a  ,-a};
 
