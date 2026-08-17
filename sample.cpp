@@ -15,6 +15,6 @@ signed main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     
-    cout<<"hello";
+    cout<<"hello"<<LLONG_MAX;
     return 0;
 }
