@@ -60,3 +60,20 @@ while (i < text.size()) {
 }
 
 //using UNIque array to store all possible sum from an array think how then use freq to calculate possible_ways_to_make_using_pair[sum]
+
+//next_permutation
+ string next_permutation(string& s){
+        int i=s.size()-2,n=s.size();
+        for(;i>=0;i--){
+            if(s[i]<s[i+1])break;
+        }
+        if(i==-1)return "";
+        int j=n-1;
+        for(;j>=0;j--){
+           if(s[j]>s[i])break; 
+        }
+        while(j> 0 && s[j-1]==s[j])j--;
+        swap(s[i],s[j]);
+        sort(s.begin()+j+1,s.end());
+        return s;
+    }

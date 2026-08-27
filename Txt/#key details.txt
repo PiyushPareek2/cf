@@ -2,3 +2,7 @@
 *for median for min  operation to make all element in array equal 
 *map m.size() give size of map all key value even one of those which you never created but created when you tried to access them to get rid from always delete using m.erase(key)
 * agar return long long aur int k, sum then return k*sum can cause overflow therefore use return 1LL *k*sum
+find common interval of two interval [s1,e1] and [s2,e2] is [max(s1,s2),min(e1,e2)] if interval is invalid sn > en then there is no common part
+for xor from 0 to n if n%4==3 xor=0 then calculate the rest
+Beautiful Arrangement (LeetCode 526) - Use backtracking with a bitmask to keep track of placed numbers.  
+lc 698 bhi deakh lena agar dam ho to bit masking dp
