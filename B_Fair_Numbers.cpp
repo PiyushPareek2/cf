@@ -16,20 +16,25 @@ bool isfair(int n){
     }
     return true;
 }
+void solve(){
+    int n;
+    cin >> n;
+    for(;1;n++){
+        if(isfair(n))break;
+    }
+    cout <<n<< endl;
+    return ;
+}
 
 signed main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-   int pf=1,dmax=0,pmax=1;
-   for(int i=2 ; i<1e8;i++){
-     if(!isfair(i))continue;
-     int diff=i-pf;
-     if(diff>dmax){pmax=i;dmax=diff;}
-     pf=i;
-
-   }
-   cout<<pf-dmax;
-
-  
+    
+    int t;
+    cin >> t;
+    while(t--){
+        solve();
+    }
+    
     return 0;
 }

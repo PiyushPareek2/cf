@@ -16,6 +16,7 @@ void solve(){
         ub--;
         if(lb==ub){
             cout<<-1;
+            cout<<endl;
             return;
         }
         range[a[i]].push_back(lb);

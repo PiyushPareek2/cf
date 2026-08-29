@@ -1,0 +1,18 @@
+Bitmasking Dp
+mask store subset information mask of n bits will store info like select/not select  +/- yes/no for each element
+dp - solve smaller problem for bigger problem  state (info from smaller problem to solve bigger one) transition (how we move from smaller to bigger problem)
+
+2 pattern
+1. dp over subset
+	dp[mask]=best answer for the subset
+2. dp over subset + last element
+ 	dp[mask][last]= best answer for the mask ending at the last
+
+!! Bitmask= state=subset !! very useful info
+ basic template 
+	for mask 0 ->2^n -1 ;
+		for every bit not in mask:
+  			add bit to mask->newMask like newmask=mask&(1<<bit)
+			dp[newMask]+=dp[mask](or something else);
+iterating over submask
+for (int sub = remaining; sub; sub = (sub - 1) & remaining)
