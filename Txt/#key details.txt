@@ -6,3 +6,6 @@ find common interval of two interval [s1,e1] and [s2,e2] is [max(s1,s2),min(e1,e
 for xor from 0 to n if n%4==3 xor=0 then calculate the rest
 Beautiful Arrangement (LeetCode 526) - Use backtracking with a bitmask to keep track of placed numbers.  
 lc 698 bhi deakh lena agar dam ho to bit masking dp
+
+ "bits_used= data_type_size - __builtin_clz(n)" int 32 long long 64 etc  ex if int 7 so 111   __builtin_clz(5) will return 29  32-29=3
+  log n= bits_used -1;
