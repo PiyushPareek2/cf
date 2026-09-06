@@ -27,7 +27,7 @@ void solve(){
         else break;
          if(k==x)break;
     }
-     for(int i : a){
+     for(int i : c){
         if((x|i) == x){
             k=k|i;
         }

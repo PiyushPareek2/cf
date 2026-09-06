@@ -9,3 +9,13 @@ lc 698 bhi deakh lena agar dam ho to bit masking dp
 
  "bits_used= data_type_size - __builtin_clz(n)" int 32 long long 64 etc  ex if int 7 so 111   __builtin_clz(5) will return 29  32-29=3
   log n= bits_used -1;
+priority_queue<int, vector<int>, greater<int>> pq; // top kth element using min heap (max heap is default pq)
+
+for(int x : nums){
+    pq.push(x);
+
+    if(pq.size() > k)
+        pq.pop();
+}
+
+return pq.top();
