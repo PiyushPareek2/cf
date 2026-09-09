@@ -23,8 +23,11 @@ void solve(){
     cout<<n*n<<endl;
     return ;
    }
-   int ans=(x)/2 * (x+2)/2;
-   
+   int ans=x;
+   for(int i=0;i<x;i++){
+    ans=max(ans,(x-i)*(i+1));
+   }
+
    cout<<ans<<endl;
 }
 

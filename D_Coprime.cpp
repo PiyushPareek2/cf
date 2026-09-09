@@ -10,9 +10,6 @@ void solve(){
     for(auto &x : a) cin >> x;
     vector<int> focc(1001,1e9);
     vector<int> locc(1001,-1);
-    for(int i=0;i<n;i++){
-        focc[a[i]]=min(focc[a[i]],i);
-    }
     for(int i=n-1;i>=0;i--){
         locc[a[i]]=max(locc[a[i]],i);
     }
@@ -24,7 +21,7 @@ void solve(){
     for(int i=0;i<n;i++){
         for(int j=i;j<n;j++){
             if(gcd(a[i],a[j])==1){
-                ans=max(ans,locc[a[i]]+focc[a[j]]+2);
+               
                 ans=max(ans,locc[a[j]]+locc[a[i]]+2);
             }
         }
